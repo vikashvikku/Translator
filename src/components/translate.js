@@ -50,7 +50,6 @@ const debounce = (fn) => {
 
 const doTranslation = debounce(
   async (input, languageCode, cancelToken, callback) => {
-    console.log(cancelToken);
     try {
       const { data } = await axios.post(
         "https://translation.googleapis.com/language/translate/v2?key=AIzaSyCf0Xy0OnhxlduyEt3K8zP-sOuu-l_u6uA",
@@ -58,7 +57,8 @@ const doTranslation = debounce(
           q: input,
           target: languageCode,
         },
-        { cancelToken: cancelToken.token }
+        { cancelToken: cancelToken.token },
+        { crossdomain: true }
       );
 
       callback(data.data.translations[0].translatedText);
